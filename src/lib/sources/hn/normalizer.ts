@@ -39,6 +39,7 @@ export function normalizeHnStory(raw: RawLead): FounderProfile | null {
     reachability: "Active poster on Hacker News",
     confidence: "Low",
     channel: "EMAIL",
+    activityAt: h.created_at_i ? new Date(h.created_at_i * 1000).toISOString() : null,
     rawText: `Title: ${h.title}\nBody: ${body}`,
   };
 }

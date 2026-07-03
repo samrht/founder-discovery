@@ -19,6 +19,8 @@ model Lead {
   rawPayload       String // JSON raw source object
   disqualifyReason String?
   error            String?
+  activityAt       DateTime? // founder's last activity at the source (freshness)
+  outcome          String? // NO_REPLY | INTERESTED | BOOKED_CALL | CLIENT | WRONG_ICP
   createdAt        DateTime     @default(now())
   updatedAt        DateTime     @updatedAt
   evaluations      Evaluation[]
@@ -44,6 +46,8 @@ model Evaluation {
   weighted          Float
   decision          String // PURSUE_NOW | PURSUE | MAYBE_LATER | REJECTED
   reason            String
+  snapshot          String? // JSON 30-second brief {problem, biggestCompetitor, biggestOpportunity, suggestedHook}
+  reportValue       String? // JSON {stars, sections[], reason}
   createdAt         DateTime @default(now())
 }
 

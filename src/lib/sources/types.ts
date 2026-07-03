@@ -29,5 +29,6 @@ export interface FounderProfile {
   reachability: string | Unk;
   confidence: Confidence;
   channel: Channel;
+  activityAt: string | null; // ISO datetime of the founder's latest activity at the source, null if unknown
   rawText: string; // all source text evidence, fed to the LLM
 }

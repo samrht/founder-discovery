@@ -5,6 +5,7 @@ import { prisma } from "@/lib/db";
 import { EvaluationResult } from "@/lib/pipeline/evaluate";
 import { generateOutreach } from "@/lib/pipeline/outreach";
 import { FounderProfile } from "@/lib/sources/types";
+import { Outcome } from "@/lib/outcomes";
 
 export async function generateDraftAction(leadId: string): Promise<void> {
   const lead = await prisma.lead.findUniqueOrThrow({
@@ -54,4 +55,10 @@ export async function rejectLeadAction(leadId: string): Promise<void> {
 export async function saveSettingsAction(patch: Partial<AppConfig>): Promise<void> {
   await saveConfig(patch);
   revalidatePath("/settings");
+}
+
+export async function setOutcomeAction(leadId: string, outcome: Outcome | null): Promise<void> {
+  await prisma.lead.update({ where: { id: leadId }, data: { outcome } });
+  revalidatePath(`/leads/${leadId}`);
+  revalidatePath("/");
 }

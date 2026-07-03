@@ -21,6 +21,8 @@ export function normalizeYcCompany(raw: RawLead): FounderProfile {
     reachability: UNKNOWN,
     confidence: "Medium",
     channel: "EMAIL",
+    activityAt: null, // YC dump carries no activity timestamps
+
     rawText: `Company: ${c.name}\nOne-liner: ${c.one_liner}\nDescription: ${c.long_description}\nLocation: ${c.all_locations}\nTeam size: ${c.team_size}\nBatch: ${c.batch}`,
   };
 }

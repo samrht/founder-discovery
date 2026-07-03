@@ -24,6 +24,7 @@ export function normalizeFormD(raw: RawLead): FounderProfile | null {
     reachability: UNKNOWN,
     confidence: "Medium",
     channel: "EMAIL",
+    activityAt: f.dateOfFirstSale ? new Date(f.dateOfFirstSale).toISOString() : null,
     rawText: [
       `Company: ${f.entityName}`,
       `Industry: ${f.industryGroup}`,

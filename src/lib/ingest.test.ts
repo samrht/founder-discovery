@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+﻿import { describe, it, expect, beforeEach } from "vitest";
 import { prisma } from "./db";
 import { runCollect, SourceRunner } from "./ingest";
 import { FounderProfile, RawLead, UNKNOWN } from "./sources/types";
@@ -8,7 +8,7 @@ function profileFor(raw: RawLead, rawText: string): FounderProfile {
     founderName: "user_" + raw.sourceId, company: UNKNOWN, website: UNKNOWN, source: raw.source,
     sourceId: raw.sourceId, sourceUrl: raw.url, location: UNKNOWN, stage: UNKNOWN, teamSize: UNKNOWN,
     funding: UNKNOWN, revenue: UNKNOWN, recentActivity: UNKNOWN, painSignals: [], timingSignals: [],
-    reachability: UNKNOWN, confidence: "Low", channel: "REDDIT_DM", rawText,
+    reachability: UNKNOWN, confidence: "Low", channel: "REDDIT_DM", activityAt: null, rawText,
   };
 }
 const rawLead = (id: string): RawLead => ({ source: "reddit", sourceId: id, url: `https://r/${id}`, payload: {} });

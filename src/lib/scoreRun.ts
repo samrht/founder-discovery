@@ -38,6 +38,8 @@ export async function runScoring(): Promise<ScoreSummary> {
             weighted,
             decision,
             reason,
+            snapshot: ev.snapshot ? JSON.stringify(ev.snapshot) : null,
+            reportValue: ev.reportValue ? JSON.stringify(ev.reportValue) : null,
           },
         }),
         prisma.lead.update({ where: { id: lead.id }, data: { status: decision, error: null } }),

@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+﻿import { describe, it, expect } from "vitest";
 import { buildEvaluationPrompt, evaluateLead, EvaluationResult } from "./evaluate";
 import { FounderProfile, UNKNOWN } from "../sources/types";
 
@@ -7,7 +7,7 @@ const profile: FounderProfile = {
   sourceId: "1abc", sourceUrl: "https://reddit.com/x", location: UNKNOWN, stage: UNKNOWN,
   teamSize: UNKNOWN, funding: UNKNOWN, revenue: UNKNOWN, recentActivity: "Posted in r/startups",
   painSignals: [], timingSignals: [], reachability: "Active public poster on Reddit",
-  confidence: "Low", channel: "REDDIT_DM",
+  confidence: "Low", channel: "REDDIT_DM", activityAt: null,
   rawText: "Title: Struggling to size my market\nBody: no idea who my competitors are",
 };
 

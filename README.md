@@ -14,6 +14,14 @@ A local web app that finds early-stage startup founders who are likely to pay fo
 4. **Renders a decision**: Pursue Immediately, Pursue, Maybe Later, or Reject — with a one-line reason. Precision over recall: when in doubt, it rejects.
 5. **Drafts outreach** for Pursue leads only — hook → desired outcome → call to action → message — for you to edit, approve, copy, and send yourself. Nothing is ever sent automatically.
 
+Each scored lead also gets:
+
+- **Clarity Fit score** (0–100) with checkmarked reasons — not just a number, but *why*
+- **Freshness indicator** — 🟢 posted in the last 2 days, 🟡 within a week, 🔴 older; founders making decisions *now* rank first
+- **30-Second Brief** — problem, biggest competitor, biggest opportunity, and suggested hook, readable before opening the full dossier
+- **"Can Clarity Help?"** — a 1–5 star estimate of report value with the best-fit report sections, so zero-fit leads cost zero minutes
+- **Outcome tracking** — mark each outreach No reply / Interested / Booked call / Client / Wrong ICP; the queue aggregates them so scoring weights can be calibrated against what actually converts
+
 Everything runs on your machine. Leads live in a single local SQLite file (`prisma/dev.db`); the only external calls are source collection and Gemini scoring.
 
 ## Setup

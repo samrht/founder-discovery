@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+﻿import { describe, it, expect } from "vitest";
 import { dedupKey } from "./dedup";
 import { FounderProfile, UNKNOWN } from "./sources/types";
 
@@ -7,7 +7,7 @@ const base: FounderProfile = {
   sourceId: "abc", sourceUrl: "https://reddit.com/x", location: UNKNOWN, stage: UNKNOWN,
   teamSize: UNKNOWN, funding: UNKNOWN, revenue: UNKNOWN, recentActivity: UNKNOWN,
   painSignals: [], timingSignals: [], reachability: UNKNOWN, confidence: "Low",
-  channel: "REDDIT_DM", rawText: "",
+  channel: "REDDIT_DM", activityAt: null, rawText: "",
 };
 
 describe("dedupKey", () => {

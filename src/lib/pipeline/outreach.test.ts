@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+﻿import { describe, it, expect } from "vitest";
 import { buildOutreachPrompt, generateOutreach, DraftResult } from "./outreach";
 import { FounderProfile, UNKNOWN } from "../sources/types";
 import { EvaluationResult } from "./evaluate";
@@ -8,7 +8,7 @@ const profile: FounderProfile = {
   founderName: "founder_jane", company: UNKNOWN, website: UNKNOWN, source: "reddit",
   sourceId: "1abc", sourceUrl: "u", location: UNKNOWN, stage: UNKNOWN, teamSize: UNKNOWN,
   funding: UNKNOWN, revenue: UNKNOWN, recentActivity: UNKNOWN, painSignals: [], timingSignals: [],
-  reachability: UNKNOWN, confidence: "Low", channel: "REDDIT_DM",
+  reachability: UNKNOWN, confidence: "Low", channel: "REDDIT_DM", activityAt: null,
   rawText: "Body: no idea who my competitors are",
 };
 const ev: EvaluationResult = {
@@ -20,7 +20,7 @@ const ev: EvaluationResult = {
   },
   whyNow: "Asked yesterday", risks: [], missingInformation: [], overallConfidence: "Medium",
 };
-const fake: DraftResult = { primaryHook: "Competition", desiredOutcome: "Reply with interest", callToAction: "Reply and I'll send a sample", message: "Hey — saw your post about competitors..." };
+const fake: DraftResult = { primaryHook: "Competition", desiredOutcome: "Reply with interest", callToAction: "Reply and I'll send a sample", message: "Hey â€” saw your post about competitors..." };
 
 describe("buildOutreachPrompt", () => {
   it("includes channel format, evidence, and no-AI rule", () => {

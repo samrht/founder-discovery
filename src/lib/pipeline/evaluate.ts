@@ -10,6 +10,30 @@ export type DimScore = z.infer<typeof DimScoreSchema>;
 
 const ConfidenceSchema = z.enum(["High", "Medium", "Low"]);
 
+export const REPORT_SECTIONS = [
+  "Competitor Analysis",
+  "Positioning",
+  "GTM",
+  "Market Validation",
+  "Market Sizing",
+  "Pricing",
+] as const;
+
+export const SnapshotSchema = z.object({
+  problem: z.string(),
+  biggestCompetitor: z.string(),
+  biggestOpportunity: z.string(),
+  suggestedHook: z.string(),
+});
+export type Snapshot = z.infer<typeof SnapshotSchema>;
+
+export const ReportValueSchema = z.object({
+  stars: z.number().int().min(1).max(5),
+  sections: z.array(z.enum(REPORT_SECTIONS)),
+  reason: z.string(),
+});
+export type ReportValue = z.infer<typeof ReportValueSchema>;
+
 export const EvaluationSchema = z.object({
   summary: z.string(),
   observedFacts: z.array(z.string()),
@@ -22,6 +46,8 @@ export const EvaluationSchema = z.object({
   risks: z.array(z.string()),
   missingInformation: z.array(z.string()),
   overallConfidence: ConfidenceSchema,
+  snapshot: SnapshotSchema.nullish(),
+  reportValue: ReportValueSchema.nullish(),
 });
 export type EvaluationResult = z.infer<typeof EvaluationSchema>;
 
@@ -45,10 +71,21 @@ Score each dimension 0-5. Every score MUST cite its evidence (quotes or specific
 
 whyNow: one sentence answering "why contact this founder THIS WEEK", only if a concrete trigger exists (launched this week, fundraising next month, competitor just funded, actively asking questions in the last days). Vague signals ("seems to be growing") are NOT a whyNow - return null instead.
 
+snapshot: a 30-second brief a salesperson reads before opening the full profile. Keep each field to one short sentence; use "Unknown" where the evidence doesn't say.
+- problem: what the founder is struggling with right now
+- biggestCompetitor: the named or most likely competitor they face
+- biggestOpportunity: the clearest opening for them in their market
+- suggestedHook: the one angle an outreach message should lead with, drawn from the strongest evidence
+
+reportValue: whether a Clarity Research report can genuinely help this founder.
+- stars: 1-5 (5 = report directly answers a question they are asking right now; 1 = no plausible use)
+- sections: which report sections would help, chosen ONLY from ["Competitor Analysis","Positioning","GTM","Market Validation","Market Sizing","Pricing"]
+- reason: one sentence grounded in the evidence explaining the rating
+
 Ideal client: solo founder or team 2-5, pre-Series A, US/UK, actively building/fundraising/deciding, no in-house research capacity, some ability to pay.
 
 Return ONLY JSON matching exactly this shape:
-{"summary": string, "observedFacts": string[], "inferences": [{"text": string, "confidence": "High"|"Medium"|"Low"}], "scores": {"pain"|"timing"|"stageFit"|"budget"|"reachability"|"geography": {"score": 0-5 integer, "evidence": string[]}}, "whyNow": string|null, "risks": string[], "missingInformation": string[], "overallConfidence": "High"|"Medium"|"Low"}
+{"summary": string, "observedFacts": string[], "inferences": [{"text": string, "confidence": "High"|"Medium"|"Low"}], "scores": {"pain"|"timing"|"stageFit"|"budget"|"reachability"|"geography": {"score": 0-5 integer, "evidence": string[]}}, "whyNow": string|null, "risks": string[], "missingInformation": string[], "overallConfidence": "High"|"Medium"|"Low", "snapshot": {"problem": string, "biggestCompetitor": string, "biggestOpportunity": string, "suggestedHook": string}, "reportValue": {"stars": 1-5 integer, "sections": string[], "reason": string}}
 `;
 
 export function buildEvaluationPrompt(profile: FounderProfile): string {

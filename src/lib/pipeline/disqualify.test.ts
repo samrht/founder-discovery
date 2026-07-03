@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+﻿import { describe, it, expect } from "vitest";
 import { disqualify } from "./disqualify";
 import { FounderProfile, UNKNOWN } from "../sources/types";
 
@@ -6,7 +6,7 @@ const base: FounderProfile = {
   founderName: "A", company: "B", website: UNKNOWN, source: "reddit", sourceId: "1",
   sourceUrl: "", location: UNKNOWN, stage: UNKNOWN, teamSize: UNKNOWN, funding: UNKNOWN,
   revenue: UNKNOWN, recentActivity: UNKNOWN, painSignals: [], timingSignals: [],
-  reachability: UNKNOWN, confidence: "Low", channel: "REDDIT_DM",
+  reachability: UNKNOWN, confidence: "Low", channel: "REDDIT_DM", activityAt: null,
   rawText: "We are a small startup figuring out our market.",
 };
 

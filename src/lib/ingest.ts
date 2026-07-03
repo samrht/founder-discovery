@@ -75,6 +75,7 @@ export async function runCollect(runners?: SourceRunner[]): Promise<CollectSumma
             sourceUrl: profile.sourceUrl,
             dedupKey: key,
             channel: profile.channel,
+            activityAt: profile.activityAt ? new Date(profile.activityAt) : null,
             status: reason ? "DISQUALIFIED" : "NEW",
             disqualifyReason: reason,
             profile: JSON.stringify(profile),

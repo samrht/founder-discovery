@@ -7,6 +7,7 @@ interface RedditPost {
   author: string;
   subreddit: string;
   permalink: string;
+  created_utc?: number;
 }
 
 const MIN_BODY = 80;
@@ -33,6 +34,7 @@ export function normalizeRedditPost(raw: RawLead): FounderProfile | null {
     reachability: "Active public poster on Reddit",
     confidence: "Low",
     channel: "REDDIT_DM",
+    activityAt: d.created_utc ? new Date(d.created_utc * 1000).toISOString() : null,
     rawText: `Title: ${d.title}\nSubreddit: r/${d.subreddit}\nBody: ${d.selftext}`,
   };
 }
