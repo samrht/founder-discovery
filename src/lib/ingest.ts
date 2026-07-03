@@ -7,6 +7,8 @@ import { normalizeRedditPost } from "./sources/reddit/normalizer";
 import { FounderProfile, RawLead } from "./sources/types";
 import { collectYc } from "./sources/yc/collector";
 import { normalizeYcCompany } from "./sources/yc/normalizer";
+import { collectHn } from "./sources/hn/collector";
+import { normalizeHnStory } from "./sources/hn/normalizer";
 
 export interface SourceRunner {
   collect: () => Promise<RawLead[]>;
@@ -27,6 +29,7 @@ async function defaultRunners(): Promise<SourceRunner[]> {
   return [
     { collect: () => collectReddit(cfg.subreddits, cfg.redditLimitPerSub), normalize: normalizeRedditPost },
     { collect: () => collectYc(cfg), normalize: (r) => normalizeYcCompany(r) },
+    { collect: () => collectHn(cfg), normalize: normalizeHnStory },
   ];
 }
 

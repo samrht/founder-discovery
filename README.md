@@ -1,12 +1,12 @@
 # Founder Discovery & Lead Scoring
 
-Local Next.js app that collects founders from Reddit and YC Launches, scores them against the Clarity Research ideal-client profile (six weighted dimensions, evidence per score, precision over recall), and produces human-reviewed outreach drafts. Nothing auto-sends: every draft is edited, approved, copied, and sent manually. The behavior source of truth is [`docs/product-spec.md`](docs/product-spec.md).
+Local Next.js app that collects founders from Reddit, YC Launches, and Hacker News (Ask HN / Show HN), scores them against the Clarity Research ideal-client profile (six weighted dimensions, evidence per score, precision over recall), and produces human-reviewed outreach drafts. Nothing auto-sends: every draft is edited, approved, copied, and sent manually. The behavior source of truth is [`docs/product-spec.md`](docs/product-spec.md).
 
 ## Setup
 
 1. `npm i`
 2. Copy `.env.example` → `.env` and fill in:
-   - **Reddit**: create a *script* app at [reddit.com/prefs/apps](https://www.reddit.com/prefs/apps) → `REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET`, plus your `REDDIT_USERNAME`, `REDDIT_PASSWORD`, and a descriptive `REDDIT_USER_AGENT`.
+   - **Reddit** (optional — HN and YC work without it): create a *script* app at [reddit.com/prefs/apps](https://www.reddit.com/prefs/apps) → `REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET`, plus your `REDDIT_USERNAME`, `REDDIT_PASSWORD`, and a descriptive `REDDIT_USER_AGENT`. Note: Reddit may refuse app creation on new accounts; the collector logs the auth error and the other sources still run.
    - **Gemini**: free-tier key from [aistudio.google.com/apikey](https://aistudio.google.com/apikey) → `GEMINI_API_KEY` (model defaults to `GEMINI_MODEL=gemini-2.5-flash`).
 3. `npx prisma db push` — creates the local SQLite database.
 4. `npm run dev` — app at [http://localhost:3000](http://localhost:3000).

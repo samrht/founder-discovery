@@ -8,6 +8,7 @@ export interface AppConfig {
   redditLimitPerSub: number;
   ycBatches: string[];
   ycMaxPerRun: number;
+  hnMaxPerRun: number;
   scoreBatchSize: number;
 }
 
@@ -19,6 +20,7 @@ export const DEFAULT_CONFIG: AppConfig = {
   redditLimitPerSub: 50,
   ycBatches: ["Spring 2026", "Winter 2026"],
   ycMaxPerRun: 25,
+  hnMaxPerRun: 25,
   scoreBatchSize: 10,
 };
 
