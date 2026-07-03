@@ -14,12 +14,20 @@ export function modelChain(): string[] {
   return [...DEFAULT_MODELS];
 }
 
+// Lead triage doesn't need deep reasoning; minimal thinking cuts latency ~2-3x.
+// gemini-3.x takes thinkingLevel, gemini-2.5 takes thinkingBudget, older models take neither.
+export function thinkingConfigFor(model: string): Record<string, unknown> {
+  if (/^gemini-3/.test(model)) return { thinkingConfig: { thinkingLevel: "minimal" } };
+  if (/^gemini-2\.5/.test(model)) return { thinkingConfig: { thinkingBudget: 0 } };
+  return {};
+}
+
 async function sdkCall(model: string, prompt: string): Promise<string> {
   const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
   const res = await ai.models.generateContent({
     model,
     contents: prompt,
-    config: { responseMimeType: "application/json" },
+    config: { responseMimeType: "application/json", ...thinkingConfigFor(model) },
   });
   return res.text ?? "";
 }

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { z } from "zod";
-import { generateJson, modelChain, callWithFallback } from "./gemini";
+import { generateJson, modelChain, callWithFallback, thinkingConfigFor } from "./gemini";
 
 const schema = z.object({ ok: z.boolean() });
 
@@ -41,6 +41,19 @@ describe("modelChain", () => {
     vi.stubEnv("GEMINI_MODEL", "");
     expect(modelChain()[0]).toBe("gemini-3.5-flash");
     expect(modelChain().length).toBeGreaterThan(1);
+  });
+});
+
+describe("thinkingConfigFor", () => {
+  it("uses thinkingLevel minimal for gemini-3.x", () => {
+    expect(thinkingConfigFor("gemini-3.5-flash")).toEqual({ thinkingConfig: { thinkingLevel: "minimal" } });
+    expect(thinkingConfigFor("gemini-3.1-flash-lite")).toEqual({ thinkingConfig: { thinkingLevel: "minimal" } });
+  });
+  it("uses thinkingBudget 0 for gemini-2.5", () => {
+    expect(thinkingConfigFor("gemini-2.5-flash")).toEqual({ thinkingConfig: { thinkingBudget: 0 } });
+  });
+  it("sends nothing for older models", () => {
+    expect(thinkingConfigFor("gemini-2.0-flash")).toEqual({});
   });
 });
 
