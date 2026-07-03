@@ -9,6 +9,8 @@ import { collectYc } from "./sources/yc/collector";
 import { normalizeYcCompany } from "./sources/yc/normalizer";
 import { collectHn } from "./sources/hn/collector";
 import { normalizeHnStory } from "./sources/hn/normalizer";
+import { collectEdgar } from "./sources/edgar/collector";
+import { normalizeFormD } from "./sources/edgar/normalizer";
 
 export interface SourceRunner {
   collect: () => Promise<RawLead[]>;
@@ -30,6 +32,7 @@ async function defaultRunners(): Promise<SourceRunner[]> {
     { collect: () => collectReddit(cfg.subreddits, cfg.redditLimitPerSub), normalize: normalizeRedditPost },
     { collect: () => collectYc(cfg), normalize: (r) => normalizeYcCompany(r) },
     { collect: () => collectHn(cfg), normalize: normalizeHnStory },
+    { collect: () => collectEdgar(cfg), normalize: normalizeFormD },
   ];
 }
 

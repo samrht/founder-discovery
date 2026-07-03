@@ -1,4 +1,4 @@
-export type SourceName = "reddit" | "yc" | "hn";
+export type SourceName = "reddit" | "yc" | "hn" | "edgar";
 export type Channel = "REDDIT_DM" | "EMAIL";
 export type Confidence = "High" | "Medium" | "Low";
 export const UNKNOWN = "Unknown" as const;

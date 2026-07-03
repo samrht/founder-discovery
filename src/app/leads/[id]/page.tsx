@@ -41,7 +41,7 @@ export default async function LeadPage({ params }: { params: Promise<{ id: strin
         <h1 className="text-2xl font-bold">{p.founderName !== UNKNOWN ? p.founderName : p.company}</h1>
         <StatusBadge status={lead.status} />
         <a href={lead.sourceUrl} target="_blank" className="text-sm underline">
-          {({ reddit: "Reddit post", yc: "YC profile", hn: "HN post" } as Record<string, string>)[lead.source] ?? lead.source} ↗
+          {({ reddit: "Reddit post", yc: "YC profile", hn: "HN post", edgar: "SEC Form D filing" } as Record<string, string>)[lead.source] ?? lead.source} ↗
         </a>
         {p.website !== UNKNOWN && (
           <a href={p.website} target="_blank" className="text-sm underline">

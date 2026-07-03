@@ -18,11 +18,17 @@ const DAYS_BACK = 7;
 export async function collectHn(cfg: AppConfig): Promise<RawLead[]> {
   const since = Math.floor(Date.now() / 1000) - DAYS_BACK * 86400;
   const out: RawLead[] = [];
-  for (const tag of ["ask_hn", "show_hn"]) {
-    const url = `${HN_API}?tags=${tag}&hitsPerPage=${cfg.hnMaxPerRun}&numericFilters=created_at_i>${since}`;
+  const queries = [
+    `tags=ask_hn`,
+    `tags=show_hn`,
+    // Launch HN posts: founders launching this week, strongest timing signal on HN
+    `tags=story&query=${encodeURIComponent('"Launch HN"')}&restrictSearchableAttributes=title`,
+  ];
+  for (const q of queries) {
+    const url = `${HN_API}?${q}&hitsPerPage=${cfg.hnMaxPerRun}&numericFilters=created_at_i>${since}`;
     const res = await fetch(url);
     if (!res.ok) {
-      console.error(`HN ${tag} fetch failed: ${res.status}`);
+      console.error(`HN fetch failed (${q}): ${res.status}`);
       continue;
     }
     const json = (await res.json()) as { hits?: HnHit[] };

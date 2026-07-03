@@ -9,6 +9,7 @@ export interface AppConfig {
   ycBatches: string[];
   ycMaxPerRun: number;
   hnMaxPerRun: number;
+  edgarMaxPerRun: number;
   scoreBatchSize: number;
 }
 
@@ -21,6 +22,7 @@ export const DEFAULT_CONFIG: AppConfig = {
   ycBatches: ["Spring 2026", "Winter 2026"],
   ycMaxPerRun: 25,
   hnMaxPerRun: 25,
+  edgarMaxPerRun: 15,
   scoreBatchSize: 10,
 };
 
